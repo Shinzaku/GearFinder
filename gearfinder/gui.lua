@@ -1,4 +1,6 @@
+-- Only types that I was able to find are defined here.
 ---@param imgui IGuiManager
+---@param ffi ffilib
 function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddress)
     imgui.PushStyleColor(ImGuiCol_TitleBg, uiConfig.style.colTitleBg);
     imgui.PushStyleColor(ImGuiCol_TitleBgActive, uiConfig.style.colTitleBgActive);
