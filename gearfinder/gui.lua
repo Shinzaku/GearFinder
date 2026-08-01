@@ -149,7 +149,7 @@ function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddr
             -- if (imgui.Button("Generate Set")) then
                 
             -- end
-            imgui.BeginChild(addon.name .. "_search_filters", { 225, -1 });
+            imgui.BeginChild(addon.name .. "_search_filters", { 225, -1 }, ImGuiChildFlags_AlwaysAutoResize);
                 for i,v in pairs(gearGlobals.searchFilters) do
                     imgui.SetNextItemWidth(70);
                     if (imgui.BeginCombo("##filter_stat_" .. i, v.stat, ImGuiComboFlags_NoArrowButton)) then
@@ -195,7 +195,7 @@ function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddr
         imgui.SameLine();
         imgui.BeginGroup();
             imgui.Text("Gear Stat Overview:");
-            imgui.BeginChild(addon.name .. "_stat_overview", { -1, -1 });
+            imgui.BeginChild(addon.name .. "_stat_overview", { -1, -1 }, ImGuiChildFlags_AlwaysAutoResize);
                 for i,v in ipairs(gearGlobals.orderedStats) do
                     if (v.visible and imgui.CollapsingHeader(v.category, ImGuiTreeNodeFlags_DefaultOpen)) then
                         for _,sIx in ipairs(v.stats) do
@@ -263,7 +263,7 @@ function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddr
             if (imgui.Selectable(uiConfig.awfont_icons.trashcan .. " Clear Slot")) then
                 SetWorkingSlot(uiConfig.select_set_index, nil);
             end
-            imgui.BeginChild(addon.name .. "_selectable_gear_list", { -1, -1 }, ImGuiChildFlags_AlwaysAutoResize);
+            imgui.BeginChild(addon.name .. "_selectable_gear_list", { -1, -1 }, ImGuiChildFlags_None);
                 local currJob = AshitaCore:GetMemoryManager():GetPlayer():GetMainJob();
                 local currBag = -1;
                 for _,item in pairs(gearGlobals.gearCache) do
