@@ -1,3 +1,4 @@
+---@param imgui IGuiManager
 function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddress)
     imgui.PushStyleColor(ImGuiCol_TitleBg, uiConfig.style.colTitleBg);
     imgui.PushStyleColor(ImGuiCol_TitleBgActive, uiConfig.style.colTitleBgActive);
@@ -67,7 +68,7 @@ function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddr
                         if (eit.equipStatus ~= nil and eit.equipStatus == false) then
                             imgui.PushStyleColor(ImGuiCol_Button, uiConfig.style.colError);
                         end
-                        if (imgui.ImageButton(tonumber(ffi.cast("uint32_t", eit.texture)), { 40, 42 })) then
+                        if (imgui.ImageButton(eit.name, tonumber(ffi.cast("uint32_t", eit.texture)), { 40, 42 })) then
                             if (uiConfig.select_slot == eit.slot and uiConfig.selecting_gear[1]) then
                                 uiConfig.selecting_gear[1] = false;
                             else
@@ -146,7 +147,7 @@ function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddr
             -- if (imgui.Button("Generate Set")) then
                 
             -- end
-            imgui.BeginChild(addon.name .. "_search_filters", { 225, -1 }, true);
+            imgui.BeginChild(addon.name .. "_search_filters", { 225, -1 });
                 for i,v in pairs(gearGlobals.searchFilters) do
                     imgui.SetNextItemWidth(70);
                     if (imgui.BeginCombo("##filter_stat_" .. i, v.stat, ImGuiComboFlags_NoArrowButton)) then
@@ -192,7 +193,7 @@ function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddr
         imgui.SameLine();
         imgui.BeginGroup();
             imgui.Text("Gear Stat Overview:");
-            imgui.BeginChild(addon.name .. "_stat_overview", { -1, -1 }, true);
+            imgui.BeginChild(addon.name .. "_stat_overview", { -1, -1 });
                 for i,v in ipairs(gearGlobals.orderedStats) do
                     if (v.visible and imgui.CollapsingHeader(v.category, ImGuiTreeNodeFlags_DefaultOpen)) then
                         for _,sIx in ipairs(v.stats) do
@@ -247,6 +248,7 @@ function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddr
                 end
             imgui.EndChild();
         imgui.EndGroup();
+		imgui.End()
     end
 
     -- Gear selection dropdown
@@ -259,7 +261,7 @@ function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddr
             if (imgui.Selectable(uiConfig.awfont_icons.trashcan .. " Clear Slot")) then
                 SetWorkingSlot(uiConfig.select_set_index, nil);
             end
-            imgui.BeginChild(addon.name .. "_selectable_gear_list", { -1, -1 }, false);
+            imgui.BeginChild(addon.name .. "_selectable_gear_list", { -1, -1 }, ImGuiChildFlags_AlwaysAutoResize);
                 local currJob = AshitaCore:GetMemoryManager():GetPlayer():GetMainJob();
                 local currBag = -1;
                 for _,item in pairs(gearGlobals.gearCache) do
@@ -330,6 +332,7 @@ function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddr
             if (not imgui.IsWindowFocused(ImGuiFocusedFlags_ChildWindows)) then
                 uiConfig.selecting_gear[1] = false;
             end
+			imgui.End()
         end
     end
 
@@ -354,6 +357,7 @@ function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddr
                 end
             end
             imgui.ProgressBar((totalFinished / #rtGlobals.routines));
+			imgui.End()
         end
         imgui.PopStyleColor(1);
     end
