@@ -70,7 +70,7 @@ function DrawGUI(imgui, uiConfig, ffi, gearGlobals, allStats, rtGlobals, memAddr
                         if (eit.equipStatus ~= nil and eit.equipStatus == false) then
                             imgui.PushStyleColor(ImGuiCol_Button, uiConfig.style.colError);
                         end
-                        if (imgui.ImageButton(eit.name, tonumber(ffi.cast("uint32_t", eit.texture)), { 40, 42 })) then
+                        if (imgui.ImageButton(tostring(eit.slot), tonumber(ffi.cast("uint32_t", eit.texture)), { 40, 42 })) then
                             if (uiConfig.select_slot == eit.slot and uiConfig.selecting_gear[1]) then
                                 uiConfig.selecting_gear[1] = false;
                             else
