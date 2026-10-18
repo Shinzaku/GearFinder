@@ -185,8 +185,10 @@ function ParseAugments(memAddress, ext, stats, allStats)
                             if (v.id == aid) then
                                 if (not stats.base[stIx]) then
                                     local rstring = AshitaCore:GetResourceManager():GetString("augments", v.id);
-                                    local isPercent = rstring:find("%%%%") ~= nil;
-                                    stats.base[stIx] = CreateNewStat(0, 0, isPercent, false);
+                                    if (rstring ~= nil) then
+                                        local isPercent = rstring:find("%%%%") ~= nil;
+                                        stats.base[stIx] = CreateNewStat(0, 0, isPercent, false);
+                                    end
                                 end
                                 stats.base[stIx].aug = stats.base[stIx].aug + v.val;
                             end

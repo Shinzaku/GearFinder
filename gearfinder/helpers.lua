@@ -93,7 +93,7 @@ function ScrubFFXISpecialCharacters(str)
         str = str:replace("\xEF\x24", "WaterResist");
         str = str:replace("\xEF\x25", "LightResist");
         str = str:replace("\xEF\x26", "DarkResist");
-        str = str:replace("\x25", "%%");
+        str = str:replace("\x25", "%");
         return str;
     end
     return "";
@@ -105,14 +105,13 @@ function ParseResourceDescription(iId, allStats)
     itemStats.base = T{};
     local parsePet = false;
     local desc = rItem.Description[1];
-
     local stats = itemStats.base;
+
     if (desc) then
         local blocks = ashita.regex.split(desc, ": ");
         for bix,bstr in pairs(blocks) do
             bstr = "\n" .. bstr .. ":\n";
             bstr = ScrubFFXISpecialCharacters(bstr);
-
             local batchCounter = 0;
             for _k,att in pairs(allStats) do
                 local key = _k;
@@ -137,7 +136,7 @@ function ParseResourceDescription(iId, allStats)
                             end
                         else
                             local fullMatch = att.match .. "(\\d+)?~?(\\d+)?(%)?";
-                            local matches = ashita.regex.search(bstr, fullMatch);
+                            local matches = ashita.regex.search(bstr:lower(), fullMatch:lower());
                             if (matches) then
                                 local oper = matches[1][2];
                                 local amt = tonumber(matches[1][3]);

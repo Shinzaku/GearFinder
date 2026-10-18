@@ -1,6 +1,6 @@
 addon.name      = "gearfinder";
 addon.author    = "Shinzaku";
-addon.version   = "1.0";
+addon.version   = "1.1";
 addon.desc      = "Find gear in inventory based on filterable stats; Generate sets based on criteria";
 
 require "common";
@@ -49,6 +49,7 @@ local rtGlobals = T{
     lastCache = 0;
     cAction = 1;
     routines = T{},
+    routineLogs = T{}
 };
 
 local gearGlobals = T{
@@ -156,8 +157,8 @@ function TryAddToCache(id, slot, ibag, slipId, ext)
                     su = rItem.SuperiorLevel,
                     name = rItem.Name[1],
                 };
+                resItem.stats = ParseResourceDescription(rItem.Id, allStats);
                 gearGlobals.resCache:insert(resItem);
-                resItem.stats = ParseResourceDescription(rItem.Id, allStats)
             end
         end);
         local co2 = coroutine.create(function()
@@ -182,7 +183,16 @@ function TryAddToCache(id, slot, ibag, slipId, ext)
     end
 end
 
-function CacheGear()
+--- Rebuilds the gear cache; Will attempt to load from cached resources already parsed
+--- 
+--- mode 0: complete rebuild (reparses all item descriptions)
+--- 
+--- mode 1: refresh (loads cached resource parses first)
+---@param mode number
+function CacheGear(mode)
+    if (mode == 0) then
+        gearGlobals.resCache = T{};
+    end
     gearGlobals.gearCache = T{};
     local inv = AshitaCore:GetMemoryManager():GetInventory();
     for ibag=0,16 do
@@ -467,6 +477,7 @@ ashita.events.register("d3d_present", "present_cb", function ()
             rtGlobals.rtBase = nextBatch;
         end
     elseif (rtGlobals.cAction > rtGlobals.actions.idle and #rtGlobals.routines > 0) then
+        -- Routines finished
         rtGlobals.routines = T{};
         rtGlobals.rtBase = 1;
 

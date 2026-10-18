@@ -18,6 +18,8 @@ allStats.hp = { order=11, category="Stats", parent=nil, name="HP", longName="HP"
 allStats.mp = { order=12, category="Stats", parent=nil, name="MP", longName="MP", desc="", min=0, cap=0, match="MP(\\+|-)", augids={ 10 }, defsign=nil };
 allStats.convertsHPMP = { order=13, category="Stats", parent=nil, name="Convert HPMP", longName="Convert HP to MP", desc="", min=0, cap=0, match="Converts (\\d+) HP to MP", augids=nil };
 allStats.convertsMPHP = { order=14, category="Stats", parent=nil, name="Convert MPHP", longName="Convert MP to HP", desc="", min=0, cap=0, match="Converts (\\d+) MP to HP", augids=nil };
+allStats.hHP = { order=13, category="Stats", parent=nil, name="Healing HP", longName="HP Recovered While Healing", desc="", min=0, cap=0, match="HP recovered while healing (\\+|-)", augids=nil };
+allStats.hMP = { order=14, category="Stats", parent=nil, name="Healing MP", longName="MP Recovered While Healing", desc="", min=0, cap=0, match="MP recovered while healing (\\+|-)", augids=nil };
 allStats.acc = { order=15, category="Stats", parent=nil, name="Acc", longName="Accuracy", desc="", min=0, cap=0, match="[^RangedMgic ] ?(?:Accuracy|Acc.)(\\+|-)", augids={ 18 }, defsign=nil };
 allStats.atk = { order=16, category="Stats", parent=nil, name="Atk", longName="Attack", desc="", min=0, cap=0, match="[^Ranged ] ?(?:Attack|Atk.)(\\+|-)", augids={ 19 }, defsign=nil };
 allStats.racc = { order=17, category="Stats", parent=nil, name="RAcc", longName="Ranged Accuracy", desc="", min=0, cap=0, match="(?:Ranged Accuracy|Ranged Acc.|Rng. Acc.)(\\+|-)", augids={ 20 }, defsign=nil };
