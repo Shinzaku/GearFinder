@@ -9,7 +9,8 @@ Just as well, it gives a more comprehensive list of what stat bonuses are given 
 There is a limited filter selection for being able to choose which items popup when selecting a slot.
 
 1. Load the addon
-2. On first run, and ***any*** time your inventory is updated and you have new items and/or new augments, you will need to hit "Rebuild Cache"
+2. On first run you will need to hit "Rebuild Cache"
+3. ***Any*** time your inventory is updated and you have new items and/or new augments **and** you want it show up in the app, click "Refresh Cache"
 
 From there, click any slot to begin setting items into a working set. At any time, you are able to click "Equip Working Set" to attempt to equip the working set to your character.
 Please note - Ashitacast takes priority, and might up-equip any items you have set if you have an active profile loaded. Recommended to disable using /lac disable before attempting to equip something. Once done, can of course reenable using /lac enable
